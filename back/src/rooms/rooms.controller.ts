@@ -71,7 +71,7 @@ export class RoomsController {
 
     await this.roomService.addUserToRoom(userId, room.id, room.max_size);
 
-    return room;
+    return await this.roomService.getRoomById(room.id);
   }
 
   @Patch(':id/joke')
