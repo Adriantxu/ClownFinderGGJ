@@ -1,6 +1,5 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import * as schedule from 'node-schedule';
 import * as cookieParser from 'cookie-parser';
 import { ValidationPipe } from '@nestjs/common';
 
@@ -23,5 +22,4 @@ bootstrap();
 
 process.on('SIGINT', function () {
   console.log('Shutting down api...');
-  schedule.gracefulShutdown().then(() => process.exit(0));
 });
