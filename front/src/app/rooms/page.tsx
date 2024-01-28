@@ -121,7 +121,9 @@ export default function RoomsPage() {
       <div className="flex-grow ">
         <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-teal-500">
           <main className="flex flex-col items-center justify-center w-9/12 space-y-6">
+            <Link href="/">
             <h1 className="text-4xl font-bold">ClownFinder 🤡</h1>
+            </Link>
             <div className="w-full max-w-2xl">
               <Card>
                 <CardHeader>
