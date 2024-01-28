@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { PrismaDbModule } from './prisma-db/prisma-db.module';
 import { AuthModule } from './auth/auth.module';
 import { RoomsModule } from './rooms/rooms.module';
+import { UtilsModule } from './utils/utils.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { RoomsModule } from './rooms/rooms.module';
       isGlobal: true,
     }),
     PrismaDbModule,
+    UtilsModule,
     AuthModule,
     RoomsModule,
   ],
