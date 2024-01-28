@@ -152,7 +152,7 @@ export default function RoomsPage() {
                       />
                     </div>
                     <br />
-                    <Link href={"/rooms/" + (roomsData.length + 1)}>
+                    <Link href={"/room/" + (roomsData.length + 1)}>
                       <Button
                         className="w-full bg-white text-blue-950"
                         type="submit"
