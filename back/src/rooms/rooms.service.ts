@@ -85,11 +85,26 @@ export class RoomsService {
     });
   }
 
-  async continueRoom(roomId: number) {
+  async continueRoom(roomId: number, winnerId: number) {
     const users = await this.prismaService.user.findMany({
       where: {
         room_id: roomId,
         being_clown: false,
+      },
+    });
+
+    const winner = await this.prismaService.user.findUnique({
+      where: {
+        id: winnerId,
+      },
+    });
+
+    await this.prismaService.user.update({
+      where: {
+        id: winnerId,
+      },
+      data: {
+        points: winner.points + 1,
       },
     });
 

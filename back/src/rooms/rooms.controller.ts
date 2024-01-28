@@ -114,7 +114,11 @@ export class RoomsController {
 
   @Post(':id/next')
   @UseGuards(AuthGuard('jwt'))
-  async nextRoom(@Req() req: Request, @Param('id') roomId: string) {
+  async nextRoom(
+    @Req() req: Request,
+    @Param('id') roomId: string,
+    @Body() body: object,
+  ) {
     this.utils.getUserId(req);
 
     await this.roomService.getRoomById(+roomId).then((e) => {
@@ -124,7 +128,7 @@ export class RoomsController {
       return e;
     });
 
-    await this.roomService.continueRoom(+roomId);
+    await this.roomService.continueRoom(+roomId, body['winnerId']);
 
     return await this.roomService.getRoomById(+roomId);
   }

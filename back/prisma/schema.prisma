@@ -18,8 +18,9 @@ model User {
   name          String   @unique
   being_clown   Boolean
   user_joke     String?
+  points        Int      @default(0)
   room_id       Int?
-  room          Room?     @relation(fields: [room_id], references: [id])
+  room          Room?    @relation(fields: [room_id], references: [id])
 }
 
 // Room model
