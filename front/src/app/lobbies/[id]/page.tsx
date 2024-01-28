@@ -5,11 +5,26 @@ import CanvasDraw from "react-canvas-draw";
 
 function User() {
   const ref = useRef<CanvasDraw>(null);
+  const channel = useRef<BroadcastChannel | null>(null);
   const [timer, setTimer] = useState(0);
   const [color, setColor] = useState("#000000");
 
   useEffect(() => {
-    setTimer(5);
+    setTimer(30);
+  }, []);
+
+  useEffect(() => {
+    const initChannel = () => {
+      channel.current = new BroadcastChannel("canvas");
+
+      return () => {
+        channel.current!.close();
+      };
+    };
+
+    const cleanup = initChannel();
+
+    return cleanup;
   }, []);
 
   // fetch /api/lobbies/:id/theme
@@ -21,6 +36,11 @@ function User() {
     }
     const interval = setInterval(() => {
       setTimer((t) => t - 1);
+      // send data in broadcast channel
+      channel.current!.postMessage({
+        type: "message",
+        data: ref.current?.getSaveData(),
+      });
     }, 1000);
     return () => clearInterval(interval);
   }, [timer]);
@@ -101,10 +121,39 @@ function User() {
 }
 
 function Host() {
-    // wait 30s
-    // broadcast channel get all canvas
-    // choose one
-    // post /room/:id/winner
+  const ref = useRef<CanvasDraw>(null);
+  const channel = useRef<BroadcastChannel | null>(null);
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    const initChannel = () => {
+      channel.current = new BroadcastChannel("canvas");
+      channel.current.onmessage = (e) => {
+        setData(e.data.data);
+      };
+
+      return () => {
+        channel.current!.close();
+      };
+    }
+
+    const cleanup = initChannel();
+
+    return cleanup;
+  }, []);
+
+  return (
+    <>
+      <CanvasDraw
+        ref={ref}
+        disabled
+        saveData={JSON.stringify(data)}
+        canvasWidth={500}
+        canvasHeight={500}
+        className="w-full h-auto border-2 border-gray-200 rounded-lg my-5"
+      />
+    </>
+  );
 }
 
 export default function Game() {
@@ -114,7 +163,13 @@ export default function Game() {
     <div className="my-10 flex items-center justify-center flex-col gap-5">
       <h1>Lobby #{id}</h1>
       <div className="max-w-xl w-full rounded-lg h-auto flex items-center justify-center">
-        <User />
+        {localStorage.getItem("username") === "Jabolo"
+          ? (
+            <>
+              <User />
+            </>
+          )
+          : <User />}
       </div>
     </div>
   );

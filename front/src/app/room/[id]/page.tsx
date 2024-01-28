@@ -65,7 +65,7 @@ function Controls() {
     <div className="flex flex-row gap-5">
       <button
         className="bg-green-600 text-white px-4 py-3 rounded-lg w-20"
-        onClick={() => void 0}
+        onClick={() => location.href = "/lobbies/1"}
       >
         Start
       </button>
