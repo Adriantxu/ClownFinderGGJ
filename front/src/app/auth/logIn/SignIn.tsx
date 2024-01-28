@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 interface LogInData {
     accessToken: string;
@@ -80,6 +81,9 @@ export default function LogInComp() {
                 {loginError && (
                     <p className="text-red-500 text-sm text-center">
                         Incorrect email or password.
+                        <Link href="/auth/signUp">
+                            <span className="text-red-500 underline"> Sign Up</span>
+                        </Link>
                     </p>
                 )}
                 <Button className="w-full bg-gray-200" type="submit">

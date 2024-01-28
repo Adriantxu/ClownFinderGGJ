@@ -1,12 +1,17 @@
 import Link from "next/link";
+import { UserIcon } from "lucide-react";
 
 export default function Component() {
     return (
         <div className="flex flex-col min-h-screen bg-gray-900 text-white">
             <header className="px-4 lg:px-6 h-16 flex items-center">
-                <Link className="flex items-center justify-center" href="#">
+                <Link className="flex items-center " href="#">
                     <GamepadIcon className="h-6 w-6" />
                     <span className="ml-2 text-xl font-bold">ClownFinder</span>
+                </Link>
+                <div className="flex justify-end flex-grow"></div>
+                <Link href="/auth/logIn">
+                <UserIcon />
                 </Link>
             </header>
             <main className="flex-1 items-center">
