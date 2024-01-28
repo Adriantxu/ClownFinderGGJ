@@ -1,6 +1,6 @@
 "use client";
 
-import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -54,15 +54,12 @@ const svgFiles = [
 ];
 
 const Sidebar = () => {
-    return (
-      <div className="flex flex-col w-24 justify-center items-center h-screen space-y-4">
-        {svgFiles.map((svg, index) => (
-          <img key={index} src={svg} alt="Decorative SVG" className="w-20" />
-        ))}
-      </div>
-    );
-  };
-  
+  return (
+    <div className="flex flex-col w-24 justify-center items-center h-screen space-y-4">
+      {svgFiles.map((_svg, _index) => <></>)}
+    </div>
+  );
+};
 
 export default function RoomsPage() {
   const [rooms, setRooms] = useState<Room[]>([]);
@@ -99,7 +96,7 @@ export default function RoomsPage() {
         body: JSON.stringify({
           password: room.password,
         }),
-      }
+      },
     );
     const _room = await response.json();
     setRooms([...rooms, _room]);
@@ -122,7 +119,7 @@ export default function RoomsPage() {
         <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-teal-500">
           <main className="flex flex-col items-center justify-center w-9/12 space-y-6">
             <Link href="/">
-            <h1 className="text-4xl font-bold">ClownFinder 🤡</h1>
+              <h1 className="text-4xl font-bold">ClownFinder 🤡</h1>
             </Link>
             <div className="w-full max-w-2xl">
               <Card>
@@ -178,11 +175,6 @@ export default function RoomsPage() {
                         className="flex justify-between items-center"
                       >
                         <div className="flex items-center">
-                          <img
-                            src={randomSvgs[room.id - 1]}
-                            alt="Room Icon"
-                            className="h-12 w-12 mr-4"
-                          />{" "}
                           {/* Adjust size as needed */}
                           <div>
                             <h3 className="font-semibold">{room.name}</h3>
@@ -193,7 +185,7 @@ export default function RoomsPage() {
                         </div>
                         <Link
                           className="relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
-                          href={"/rooms/" + room.id}
+                          href={"/lobbies/" + room.id}
                           onClick={() => joinRoom(room)}
                         >
                           <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
