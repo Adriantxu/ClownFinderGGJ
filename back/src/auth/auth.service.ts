@@ -77,6 +77,7 @@ export class AuthService {
         expiresIn: '7d',
         secret: this.config.get('JWT_SECRET'),
       }),
+      userId: userId,
     };
   }
 }
