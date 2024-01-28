@@ -148,6 +148,7 @@ export class RoomsService {
           being_clown: false,
           user_joke: null,
           room_id: null,
+          points: 0,
         },
       });
     }
