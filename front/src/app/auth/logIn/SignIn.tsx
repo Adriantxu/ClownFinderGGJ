@@ -18,7 +18,7 @@ export default function LogInComp() {
         setLoginError(false);
 
         try {
-            const response = await fetch(`${process.env.APP_URL}/auth/login`, {
+            const response = await fetch(`http://localhost:3030/auth/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -26,7 +26,7 @@ export default function LogInComp() {
                 body: JSON.stringify({ email, password }),
             });
 
-            if (response.status !== 200) {
+            if (!response.ok) {
                 setLoginError(true);
                 return;
             }
@@ -34,6 +34,9 @@ export default function LogInComp() {
             const data = await response.json();
             localStorage.setItem("accessToken", data.accessToken);
             localStorage.setItem("userId", data.userId);
+            window.location.href = '/rooms';
+            // push to desi
+            
         } catch (error) {
             console.error(error);
             // You might want to handle network errors differently here

@@ -20,7 +20,7 @@ export default function SignUpComp() {
         const userData = { email, password, name };
 
         try {
-            const response = await fetch(`${process.env.APP_URL}/auth/signup`, {
+            const response = await fetch(`http://localhost:3030/auth/signup`, {
                 // api endpoint of adrian / type response
                 method: "POST",
                 headers: {
@@ -30,7 +30,7 @@ export default function SignUpComp() {
             });
 
             // modal different (read..)
-            if (response.status != 200) {
+            if (!response.ok) {
                 setLoginError(true);
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -38,8 +38,9 @@ export default function SignUpComp() {
             const data: SignUpData = await response.json();
             localStorage.setItem("accessToken", data.accessToken);
             localStorage.setItem("userId", data.userId);
-
+            window.location.href = '/rooms';
             console.log(data);
+            //!  change to another page...
         } catch (error) {
             console.error("Error submitting form:", error);
         }
