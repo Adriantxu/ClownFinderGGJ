@@ -29,5 +29,6 @@ model Room {
   name      String   @unique
   password  String?
   max_size  Int?     @default(3)
-  users  User[]
+  started   Boolean  @default(false)
+  users     User[]
 }

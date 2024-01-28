@@ -6,7 +6,9 @@ export class RoomsService {
   constructor(private prismaService: PrismaDbService) {}
 
   async getAllRooms() {
-    return this.prismaService.room.findMany();
+    return this.prismaService.room.findMany({
+      where: { started: false },
+    });
   }
 
   async getRoomById(roomId: number) {
@@ -70,6 +72,15 @@ export class RoomsService {
     const users = await this.prismaService.user.findMany({
       where: {
         room_id: roomId,
+      },
+    });
+
+    await this.prismaService.room.update({
+      where: {
+        id: roomId,
+      },
+      data: {
+        started: true,
       },
     });
 
