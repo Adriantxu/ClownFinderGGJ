@@ -1,4 +1,5 @@
-import { Input, Button } from "@nextui-org/react"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
 
 export default function LogInComp() {
     return (
